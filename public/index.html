@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QTouch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        #container{
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            background: tomato;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script src="QTouch.js"></script>
+    <script>
+        var elem = document.getElementById("container");
+
+        elem.addEventListener("tap", function(event) {
+            this.innerText = event.type;
+            console.log(event.type);
+        });
+        elem.addEventListener("longTap", function(event) {
+            this.innerText = event.type;
+            console.log(event.type);
+        });
+        elem.addEventListener("swipeLeft", function(event) {
+            this.innerText = event.type;
+            console.log(event.type);
+        });
+        elem.addEventListener("swipeRight", function(event) {
+            this.innerText = event.type;
+            console.log(event.type);
+        });
+        elem.addEventListener("swipeUp", function(event) {
+            this.innerText = event.type;
+            console.log(event.type);
+        });
+        elem.addEventListener("swipeDown", function(event) {
+            this.innerText = event.type;
+            console.log(event.type);
+        });
+    </script>
+</body>
+</html>
