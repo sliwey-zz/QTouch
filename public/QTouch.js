@@ -1,7 +1,10 @@
 ;(function(doc, win, undefined) {
     "use strict";
 
-    var start = {},
+    var start = {
+            x: 0,
+            y: 0
+        },
         delta = {
             x: 0,
             y: 0
@@ -14,14 +17,12 @@
 
     function createEvent(type) {
         var event;
-// alert(Object.prototype.toString.call(Event))
+
         try {
             event = new Event(type);
         } catch (e) {
-            // if (e.message.toLowerCase() === "illegal constructor") {
             event = doc.createEvent("Event");
             event.initEvent(type, true, true);
-            // }
         }
 
         return event;
@@ -33,7 +34,7 @@
         target.dispatchEvent(event);
     }
 
-    function touchStart(event) {
+    function onTouchStart(event) {
         var touch = event.touches[0];
 
         event.preventDefault();
@@ -49,52 +50,48 @@
         startTime = +new Date();
     }
 
-    function touchMove(event) {
+    function onTouchMove(event) {
         var touch = event.touches[0];
 
         delta.x = touch.pageX - start.x;
         delta.y = touch.pageY - start.y;
     }
 
-    function touchEnd(event) {
+    function onTouchEnd(event) {
         var touch = event.changedTouches[0],
-            deltaTime = +new Date() - startTime;
+            deltaTime = +new Date() - startTime,
+            deltaX = Math.abs(delta.x),
+            deltaY = Math.abs(delta.y);
 
 
         if (touch.pageX === start.x && touch.pageY === start.y) {
             if (deltaTime < longTime) {
-                // console.log("tap");
                 fireEvent("tap", target);
             } else {
-                // console.log("longTap");
                 fireEvent("longTap", target);
             }
         }
 
-        if (Math.abs(delta.x) > minDelta || Math.abs(delta.y) > minDelta) {
+        if (deltaX > minDelta || deltaY > minDelta) {
 
-            if (Math.abs(delta.x) > Math.abs(delta.y)) {
+            if (deltaX > deltaY) {
                 if (delta.x > 0) {
-                    // console.log("swipeRight")
                     fireEvent("swipeRight", target);
                 } else {
-                    // console.log("swipeLeft");
                     fireEvent("swipeLeft", target);
                 }
             } else {
                 if (delta.y > 0) {
-                    // console.log("swipeDown");
                     fireEvent("swipeDown", target);
                 } else {
-                    // console.log("swipeUp");
                     fireEvent("swipeUp", target);
                 }
             }
         }
     }
 
-    doc.addEventListener("touchstart", touchStart);
-    doc.addEventListener("touchmove", touchMove);
-    doc.addEventListener("touchend", touchEnd);
+    doc.addEventListener("touchstart", onTouchStart);
+    doc.addEventListener("touchmove", onTouchMove);
+    doc.addEventListener("touchend", onTouchEnd);
 
 }(document, window));
