@@ -12,4 +12,4 @@ cd QTouch/server/
 node app
 ```
 ####View Demo
-Open the url:`http://localhost:8888/` with your mobile phone.
+Open the url:`http://yourIPaddress:8888/` with your mobile phone.
