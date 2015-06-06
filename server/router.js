@@ -1,6 +1,6 @@
-var fs = require("fs");
-var path = require("path");
-var mime = require("./mime").types;
+var fs = require("fs"),
+    path = require("path"),
+    mime = require("./mime").types;
 
 function route(handle, pathname, request, response) {
     console.log("About to route a request for " + pathname);

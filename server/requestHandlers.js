@@ -51,29 +51,6 @@ function list(request, response) {
 
 }
 
-function getDistance(request, response) {
-    var param = url.parse(request.url, true).query;
-    var obj = {};
-    var str;
-
-    if (param.distance == "null") {
-        obj.distance = 2000;
-    } else {
-        obj.distance = (param.distance - 600) > 0 ? (param.distance - 600) : 0;
-    }
-
-    if (param.callback) {
-        str = param.callback + "(" + util.format('%j', obj) + ")";
-    } else {
-        str = util.format('%j', obj);
-    }
-
-    response.writeHead(200, {"Content-Type": "application/json"});
-    response.write(str);
-    response.end();
-}
-
 exports.start = start;
 exports.check = check;
 exports.list = list;
-exports.getDistance = getDistance;
